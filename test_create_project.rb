@@ -12,6 +12,8 @@ class TestCreateProject < Test::Unit::TestCase
   end
 
   def test_new_project
+    registration
+    log_out
     sign_in
     create_project
     expected_message = "Successful creation."

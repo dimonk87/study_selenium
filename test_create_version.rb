@@ -11,7 +11,7 @@ class TestCreateVersion < Test::Unit::TestCase
   end
 
   def test_create_version
-    sign_in
+    registration
     create_project
     create_version
     exp = "Successful creation."

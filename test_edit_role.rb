@@ -11,6 +11,9 @@ class TestEditRole < Test::Unit::TestCase
   end
 
   def test_edit_user_role
+    reg_new_user
+    registration
+    log_out
     sign_in
     create_project
     add_user
@@ -22,8 +25,8 @@ class TestEditRole < Test::Unit::TestCase
   end
 
   def edit_roles
-    @wait.until{@driver.find_element(:xpath, "(//a[contains(text(),'Edit')])[2]").displayed?}
-    @driver.find_element(:xpath, "(//a[contains(text(),'Edit')])[2]").click
+    @wait.until{@driver.find_element(:xpath, "//tr[2]/td[3]/a[1]").displayed?}
+    @driver.find_element(:xpath, "//tr[2]/td[3]/a[1]").click
     @wait.until{@driver.find_element(:xpath, "(//input[@name='membership[role_ids][]'])[6]").displayed?}
     @driver.find_element(:xpath, "(//input[@name='membership[role_ids][]'])[6]").click
     @driver.find_element(:xpath, "(//input[@name='commit'])[4]").click

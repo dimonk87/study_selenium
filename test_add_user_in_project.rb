@@ -11,12 +11,15 @@ class TestAddUserInProject < Test::Unit::TestCase
   end
 
   def test_add_user
+    reg_new_user
+    registration
+    log_out
     sign_in
     create_project
     add_user
-    expected_string = "Dimon Brod"
-    @wait.until{@driver.find_element(:xpath, "//a[contains(text(),'Dimon  Brod')]").displayed?}
-    actual_string = @driver.find_element(:xpath, "//a[contains(text(),'Dimon  Brod')]").text
+    expected_string = @@user_new_name
+    @wait.until{@driver.find_element(:xpath, '//tr[2]/td[1]/a').displayed?}
+    actual_string = @driver.find_element(:xpath, '//tr[2]/td[1]/a').text
     assert_equal(expected_string, actual_string)
   end
 
