@@ -5,12 +5,12 @@ module OurModule
   @@user_new_name = @@name1 + ' ' + @@name1
 
   def create_project
-    @wait.until{@driver.find_element(:class, 'projects').displayed?}
-    puts @driver.find_element(:class, 'projects').displayed?
-    @driver.find_element(:class, 'projects').click
-    @wait.until{@driver.find_element(:xpath, "//a[@href='/projects/new']").displayed?}
-    puts @driver.find_element(:xpath, "//a[@href='/projects/new']").displayed?
-    @driver.find_element(:xpath, "//a[@href='/projects/new']").click
+    @wait.until{@driver.find_element(:css, 'a.projects').displayed?}
+    puts @driver.find_element(:css, 'a.projects').displayed?
+    @driver.find_element(:css, 'a.projects').click
+    @wait.until{@driver.find_element(:css, "div.contextual a.icon-add").displayed?}
+    puts @driver.find_element(:css, "div.contextual a.icon-add").displayed?
+    @driver.find_element(:css, "div.contextual a.icon-add").click
     @wait.until{@driver.find_element(:id, 'project_name').displayed?}
     name_new_project = ('Project' + rand(9999).to_s)
     @driver.find_element(:id, 'project_name').send_keys name_new_project
@@ -29,14 +29,14 @@ module OurModule
     @driver.find_element(:id, 'principal_search').send_keys @@user_new_name
     sleep(1)
     @driver.find_element(:name, "membership[user_ids][]").click
-    @driver.find_element(:xpath, "(//input[@name='membership[role_ids][]'])[7]").click
+    @driver.find_element(:css, ".roles-selection label:nth-of-type(3)").click
     @driver.find_element(:id, "member-add-submit").click
   end
 
   def registration
     @driver.navigate.to 'http://demo.redmine.org'
-    @wait.until{@driver.find_element(:xpath, '//a[@href="/account/register"]').displayed?}
-    @driver.find_element(:xpath, '//a[@href="/account/register"]').click
+    @wait.until{@driver.find_element(:css, 'a[href="/account/register"]').displayed?}
+    @driver.find_element(:css, 'a[href="/account/register"]').click
     @wait.until{@driver.find_element(:id, 'user_login').displayed?}
     @driver.find_element(:id, 'user_login').send_keys @@name
     @driver.find_element(:id, 'user_password').send_keys @@name
@@ -50,9 +50,9 @@ module OurModule
 
   def sign_in
     @driver.navigate.to 'http://demo.redmine.org'
-    @wait.until{@driver.find_element(:xpath, '//a[@href="/login"]').displayed?}
-    puts @driver.find_element(:xpath, '//a[@href="/login"]').displayed?
-    @driver.find_element(:xpath, '//a[@href="/login"]').click
+    @wait.until{@driver.find_element(:css, 'a[href="/login"]').displayed?}
+    puts @driver.find_element(:css, 'a[href="/login"]').displayed?
+    @driver.find_element(:css, 'a[href="/login"]').click
     @wait.until{@driver.find_element(:id, 'username').displayed?}
     @driver.find_element(:id, 'username').send_keys @@name
     @driver.find_element(:id, 'password').send_keys @@name
@@ -63,16 +63,16 @@ module OurModule
   end
 
   def log_out
-    @wait.until{@driver.find_element(:xpath, '//a[@href="/logout"]').displayed?}
-    puts @driver.find_element(:xpath, '//a[@href="/logout"]').displayed?
-    @driver.find_element(:xpath, '//a[@href="/logout"]').click
+    @wait.until{@driver.find_element(:css, 'a[href="/logout"]').displayed?}
+    puts @driver.find_element(:css, 'a[href="/logout"]').displayed?
+    @driver.find_element(:css, 'a[href="/logout"]').click
     @wait.until{@driver.find_element(:class, 'login').displayed?}
   end
 
   def reg_new_user
     @driver.navigate.to 'http://demo.redmine.org'
-    @wait.until{@driver.find_element(:xpath, '//a[@href="/account/register"]').displayed?}
-    @driver.find_element(:xpath, '//a[@href="/account/register"]').click
+    @wait.until{@driver.find_element(:css, 'a[href="/account/register"]').displayed?}
+    @driver.find_element(:css, 'a[href="/account/register"]').click
     @wait.until{@driver.find_element(:id, 'user_login').displayed?}
     @driver.find_element(:id, 'user_login').send_keys @@name1
     @driver.find_element(:id, 'user_password').send_keys @@name1

@@ -13,8 +13,6 @@ class TestCreateProject < Test::Unit::TestCase
 
   def test_new_project
     registration
-    log_out
-    sign_in
     create_project
     expected_message = "Successful creation."
     @wait.until{@driver.find_element(:id, 'flash_notice').displayed?}

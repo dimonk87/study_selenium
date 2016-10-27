@@ -13,8 +13,6 @@ class TestAddUserInProject < Test::Unit::TestCase
   def test_add_user
     reg_new_user
     registration
-    log_out
-    sign_in
     create_project
     add_user
     expected_string = @@user_new_name

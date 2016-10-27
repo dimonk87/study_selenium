@@ -14,8 +14,8 @@ class TestCreateIssue < Test::Unit::TestCase
     bag_issue_create
     find_bug_feature_support
     expected = "Bug"
-    @wait.until{@driver.find_element(:xpath, "//div/table/tbody/tr/td[3]").displayed?}
-    actual = @driver.find_element(:xpath, "//div/table/tbody/tr/td[3]").text
+    @wait.until{@driver.find_element(:css, "td.tracker").displayed?}
+    actual = @driver.find_element(:css, "td.tracker").text
     assert_equal(expected, actual)
   end
 
@@ -25,8 +25,8 @@ class TestCreateIssue < Test::Unit::TestCase
     feature_create
     find_bug_feature_support
     expected = "Feature"
-    @wait.until{@driver.find_element(:xpath, "//div/table/tbody/tr/td[3]").displayed?}
-    actual = @driver.find_element(:xpath, "//div/table/tbody/tr/td[3]").text
+    @wait.until{@driver.find_element(:css, "td.tracker").displayed?}
+    actual = @driver.find_element(:css, "td.tracker").text
     assert_equal(expected, actual)
   end
 
@@ -36,8 +36,8 @@ class TestCreateIssue < Test::Unit::TestCase
     support_create
     find_bug_feature_support
     expected = "Support"
-    @wait.until{@driver.find_element(:xpath, "//div/table/tbody/tr/td[3]").displayed?}
-    actual = @driver.find_element(:xpath, "//div/table/tbody/tr/td[3]").text
+    @wait.until{@driver.find_element(:css, "td.tracker").displayed?}
+    actual = @driver.find_element(:css, "td.tracker").text
     assert_equal(expected, actual)
   end
   def create_issue
@@ -72,12 +72,12 @@ class TestCreateIssue < Test::Unit::TestCase
     select_list.select_by(:text, "Support")
     name_issue = ('Issue' + rand(9999).to_s)
     @driver.find_element(:id, 'issue_subject').send_keys name_issue
-    @driver.find_element(:xpath, "(//input[@name='commit'])").click
+    @driver.find_element(:name, 'commit').click
   end
   def find_bug_feature_support
-    @wait.until{@driver.find_element(:xpath, "//div[3]/div[1]/ul/li[1]/a").displayed?}
-    puts @driver.find_element(:xpath, "//div[3]/div[1]/ul/li[1]/a").displayed?
-    @driver.find_element(:xpath, "//div[3]/div[1]/ul/li[1]/a").click
+    @wait.until{@driver.find_element(:css, "div#sidebar li:nth-of-type(1) a").displayed?}
+    puts @driver.find_element(:css, "div#sidebar li:nth-of-type(1) a").displayed?
+    @driver.find_element(:css, "div#sidebar li:nth-of-type(1) a").click
   end
   def teardown
     @driver.quit

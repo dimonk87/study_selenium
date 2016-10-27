@@ -13,23 +13,21 @@ class TestEditRole < Test::Unit::TestCase
   def test_edit_user_role
     reg_new_user
     registration
-    log_out
-    sign_in
     create_project
     add_user
     edit_roles
     expected = "Developer, Reporter"
-    @wait.until{@driver.find_element(:xpath, "//tr[2]/td[2]/span").displayed?}
-    actual = @driver.find_element(:xpath, "//tr[2]/td[2]/span").text
+    @wait.until{@driver.find_element(:css, "tr.even td.roles span").displayed?}
+    actual = @driver.find_element(:css, "tr.even td.roles span").text
     assert_equal(expected, actual)
   end
 
   def edit_roles
-    @wait.until{@driver.find_element(:xpath, "//tr[2]/td[3]/a[1]").displayed?}
-    @driver.find_element(:xpath, "//tr[2]/td[3]/a[1]").click
-    @wait.until{@driver.find_element(:xpath, "(//input[@name='membership[role_ids][]'])[6]").displayed?}
-    @driver.find_element(:xpath, "(//input[@name='membership[role_ids][]'])[6]").click
-    @driver.find_element(:xpath, "(//input[@name='commit'])[4]").click
+    @wait.until{@driver.find_element(:css, "tr.even a.icon-edit").displayed?}
+    @driver.find_element(:css, "tr.even a.icon-edit").click
+    @wait.until{@driver.find_element(:css, "tr.even label:nth-of-type(2)").displayed?}
+    @driver.find_element(:css, "tr.even label:nth-of-type(2)").click
+    @driver.find_element(:css, "tr.even input[name=commit]").click
   end
 
   def teardown
