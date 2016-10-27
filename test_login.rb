@@ -13,9 +13,9 @@ class TestLogin < Test::Unit::TestCase
   def test_logaut_and_login_positive
     registration
     log_out
-    @wait.until{@driver.find_element(:css, 'a[href="/login"]').displayed?}
+    @wait.until{@driver.find_element(:class, 'login').displayed?}
     expect_link_text = "Sign in"
-    actual_link_text = @driver.find_element(:css, 'a[href="/login"]').text
+    actual_link_text = @driver.find_element(:class, 'login').text
     assert_equal(expect_link_text, actual_link_text)
     assert('http://demo.redmine.org', @driver.current_url)
     sign_in

@@ -7,8 +7,9 @@ class Probe < Test::Unit::TestCase
     @wait = Selenium::WebDriver::Wait.new(:timeout => 10)
   end
   def logout1
-    @wait.until{}
-    @driver.find_element(:css, 'div.mp-header-dropdown').click
+    @wait.until{@driver.find_element(:css, 'div.uk-float-right ul.uk-dropdown-bottom a[rel=nofollow]')}
+    sleep(2)
+    @driver.find_element(:css, 'div.uk-float-right ul.uk-dropdown-bottom a[rel=nofollow]').click
   end
   def login1
     @driver.navigate.to 'http://localhost:3000/RoR'
@@ -20,5 +21,6 @@ class Probe < Test::Unit::TestCase
   end
   def test_logaut
     login1
+    logout1
   end
 end
