@@ -38,24 +38,25 @@ module OurModule
     @wait.until{@driver.find_element(:class, 'register').displayed?}
     @driver.find_element(:class, 'register').click
     @wait.until{@driver.find_element(:id, 'user_login').displayed?}
-    @driver.find_element(:id, 'user_login').send_keys @@name
-    @driver.find_element(:id, 'user_password').send_keys @@name
-    @driver.find_element(:id, 'user_password_confirmation').send_keys @@name
-    @driver.find_element(:id, 'user_firstname').send_keys @@name
-    @driver.find_element(:id, 'user_lastname').send_keys @@name
-    @driver.find_element(:id, 'user_mail').send_keys @@name + "@i.ua"
+    name = ('User' + rand(9999).to_s)
+    @driver.find_element(:id, 'user_login').send_keys name
+    @driver.find_element(:id, 'user_password').send_keys name
+    @driver.find_element(:id, 'user_password_confirmation').send_keys name
+    @driver.find_element(:id, 'user_firstname').send_keys name
+    @driver.find_element(:id, 'user_lastname').send_keys name
+    @driver.find_element(:id, 'user_mail').send_keys name + "@i.ua"
     @driver.find_element(:name, 'commit').click
     @wait.until{@driver.find_element(:class, "logout").displayed?}
+    name
   end
 
-  def sign_in
-    @driver.navigate.to 'http://demo.redmine.org'
+  def sign_in(name)
     @wait.until{@driver.find_element(:css, 'a[href="/login"]').displayed?}
     puts @driver.find_element(:css, 'a[href="/login"]').displayed?
     @driver.find_element(:css, 'a[href="/login"]').click
     @wait.until{@driver.find_element(:id, 'username').displayed?}
-    @driver.find_element(:id, 'username').send_keys @@name
-    @driver.find_element(:id, 'password').send_keys @@name
+    @driver.find_element(:id, 'username').send_keys name
+    @driver.find_element(:id, 'password').send_keys name
     @wait.until{@driver.find_element(:name, 'login').displayed?}
     puts @driver.find_element(:name, 'login').displayed?
     @driver.find_element(:name, 'login').click

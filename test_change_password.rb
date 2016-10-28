@@ -11,8 +11,8 @@ class TestChangePassword < Test::Unit::TestCase
   end
 
   def test_change
-    registration
-    change_password
+    password = registration
+    change_password(password)
     expected_message = "Password was successfully updated."
     @wait.until {@driver.find_element(:id, 'flash_notice').displayed?}
     actual_message = @driver.find_element(:id, 'flash_notice').text
@@ -20,13 +20,13 @@ class TestChangePassword < Test::Unit::TestCase
     assert('http://demo.redmine.org/my/account', @driver.current_url)
   end
 
-  def change_password
+  def change_password(password)
     @wait.until {@driver.find_element(:class, 'my-account').displayed?}
     @driver.find_element(:class, 'my-account').click
     @wait.until {@driver.find_element(:css, 'a[href="/my/password"]').displayed?}
     @driver.find_element(:css, 'a[href="/my/password"]').click
     @wait.until {@driver.find_element(:id, 'password').displayed?}
-    @driver.find_element(:id, 'password').send_keys @@name
+    @driver.find_element(:id, 'password').send_keys password
     @driver.find_element(:id, 'new_password').send_keys('aa123456')
     @driver.find_element(:id, 'new_password_confirmation').send_keys('aa123456')
     @driver.find_element(:name, 'commit').click
